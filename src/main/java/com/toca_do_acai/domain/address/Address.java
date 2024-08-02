@@ -20,7 +20,7 @@ public class Address {
     private String state;
     private String houseNumber;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 }
