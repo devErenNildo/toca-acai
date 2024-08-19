@@ -6,11 +6,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tb_users")
-public class User implements UserDetails{
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(nullable = false, unique = true)
@@ -21,6 +22,14 @@ public class User implements UserDetails{
 
     @Column(nullable = false, length = 15, unique = true)
     private String phoneNumber;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "tb_users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Roles> roles;
 
     // CONSTRUCTORS --------------------------------------------
     public User(){
@@ -58,18 +67,11 @@ public class User implements UserDetails{
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+    public Set<Roles> getRoles() {
+        return roles;
     }
 
-    @Override
-    public String getPassword() {
-        return phoneNumber;
-    }
-
-    @Override
-    public String getUsername() {
-        return phoneNumber;
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
     }
 }
