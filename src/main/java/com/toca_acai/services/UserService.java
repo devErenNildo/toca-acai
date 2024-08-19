@@ -1,6 +1,6 @@
 package com.toca_acai.services;
 
-import com.toca_acai.domain.user.UserClient;
+import com.toca_acai.domain.user.User;
 import com.toca_acai.domain.user.UserRequestDTO;
 import com.toca_acai.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserClient> findAll(){
+    public List<User> findAll(){
         return userRepository.findAll();
     }
 
-    public UserClient save(UserRequestDTO requestDTO){
-        UserClient user = new UserClient(requestDTO.name(), requestDTO.phoneNumber());
+    public User save(UserRequestDTO requestDTO){
+        User user = new User(requestDTO.name(), requestDTO.phoneNumber());
         return userRepository.save(user);
     }
 }

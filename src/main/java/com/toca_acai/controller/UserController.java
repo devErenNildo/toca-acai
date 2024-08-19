@@ -1,6 +1,6 @@
 package com.toca_acai.controller;
 
-import com.toca_acai.domain.user.UserClient;
+import com.toca_acai.domain.user.User;
 import com.toca_acai.domain.user.UserRequestDTO;
 import com.toca_acai.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +18,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserClient>> getAllUser(){
-        List<UserClient> user = userService.findAll();
+    public ResponseEntity<List<User>> getAllUser(){
+        List<User> user = userService.findAll();
         return ResponseEntity.ok(user);
     }
 
     @PostMapping
-    public ResponseEntity<UserClient> createUser(@RequestBody UserRequestDTO requestDTO){
+    public ResponseEntity<User> createUser(@RequestBody UserRequestDTO requestDTO){
         return ResponseEntity.ok(userService.save(requestDTO));
     }
 
